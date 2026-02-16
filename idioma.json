@@ -1,0 +1,58 @@
+{
+    "sombremi": {
+        "ES": "Soy un profesional en búsqueda de desafíos que me permitan aplicar mis habilidades de rápido aprendizaje, proactividad, trabajo en equipo y responsabilidad. Aspiro a formar parte de una empresa que brinde oportunidades para alcanzar metas ambiciosas y fomente mi crecimiento laboral, personal e intelectual.",
+        "EN": "I am a professional looking for challenges that allow me to apply my skills of rapid learning, proactivity, teamwork and responsibility. I aspire to be part of a company that provides opportunities to achieve ambitious goals and encourages my professional, personal and intellectual growth."
+    },
+    "paginaAnime": {
+        "ES": "Pagina De Animes",
+        "EN": "Web Animes"
+    },
+    "menuInicio": {
+        "ES": "Inicio",
+        "EN": "Home"
+    },
+    "menuHabilidades": {
+        "ES": "Habilidades",
+        "EN": "Skills"
+    },
+    "menuProyectos": {
+        "ES": "Proyectos",
+        "EN": "Projects"
+    },
+    "menuSobremi": {
+        "ES": "Sobre mi",
+        "EN": "About me"
+    },
+    "menuContacto": {
+        "ES": "Contacto",
+        "EN": "Contact"
+    },
+    "habilidadesLenguajes": {
+        "ES": "Lenguajes de programación",
+        "EN": "Programming languages"
+    },
+    "habilidadesFramework": {
+        "ES": "Frameworks y bibliotecas",
+        "EN": "Frameworks and libraries"
+    },
+    "habilidadesPlataformas": {
+        "ES": "Plataformas y entorno",
+        "EN": "Platforms and environment"
+    },
+    "habilidadesWeb": {
+        "ES": "Tecnologías web",
+        "EN": "Web Technologies"
+    },
+    "habilidadesBasededatos": {
+        "ES": "Bases de datos y almacenamiento en la nube",
+        "EN": "Databases and cloud storage"
+    },
+    "simuladorBlockchain": {
+        "ES": "Simulador Blockchain",
+        "EN": "Blockchain simulator"
+    },
+    "menuDiplomas" :{
+        "ES": "Estudios",
+        "EN": "Estudies"
+    }
+}
