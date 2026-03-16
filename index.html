@@ -3,735 +3,1934 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Michael Arley Flores Benavides | Desarrollador de Software</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Michael Flores | Portafolio Profesional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <style>
-      /* Estilos personalizados para la temática japonesa y animaciones */
+      :root {
+        --primary-red: #c41e3a;
+        --secondary-red: #8b0000;
+        --accent-red: #ff6b6b;
+        --white: #ffffff;
+        --off-white: #f8f9fa;
+        --light-gray: #e9ecef;
+        --dark-gray: #343a40;
+        --text-gray: #495057;
+        --shadow: 0 4px 20px rgba(196, 30, 58, 0.15);
+        --shadow-hover: 0 8px 30px rgba(196, 30, 58, 0.25);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
-        font-family: "Inter", sans-serif;
-        background-color: #f8f8f8; /* Un blanco ligeramente cálido */
-        color: #333;
+        font-family: "Noto Sans JP", sans-serif;
+        background: var(--white);
+        color: var(--dark-gray);
+        line-height: 1.6;
+        overflow-x: hidden;
       }
 
-      .japanese-red {
-        color: #bc002d; /* Rojo japonés tradicional */
-      }
-      .bg-japanese-red {
-        background-color: #bc002d;
-      }
-      .border-japanese-red {
-        border-color: #bc002d;
-      }
-
-      /* Estilo para la barra de navegación */
-      nav {
-        transition: background-color 0.3s ease;
-      }
-      nav.scrolled {
-        background-color: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* Sakura Animation */
+      .sakura-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        overflow: hidden;
       }
 
-      /* Títulos de sección con acento rojo */
-      .section-title {
-        position: relative;
-        display: inline-block;
-        padding-bottom: 0.5rem; /* 8px */
-        margin-bottom: 2rem; /* 32px */
-        font-size: 2.25rem; /* 36px */
+      .sakura {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background: linear-gradient(135deg, #ffb7c5, #ff69b4);
+        border-radius: 50% 0 50% 0;
+        opacity: 0.6;
+        animation: fall linear infinite;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-100px) rotate(0deg) translateX(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.8;
+        }
+        90% {
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(100vh) rotate(720deg) translateX(100px);
+          opacity: 0;
+        }
+      }
+
+      /* Navigation */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .navbar.scrolled {
+        padding: 0.5rem 2rem;
+        background: rgba(255, 255, 255, 0.98);
+      }
+
+      .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1.8rem;
         font-weight: 700;
+        color: var(--primary-red);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
       }
-      .section-title::after {
+
+      .logo-jp {
+        font-size: 1.2rem;
+        color: var(--secondary-red);
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--dark-gray);
+        font-weight: 500;
+        position: relative;
+        padding: 0.5rem 0;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a::after {
         content: "";
         position: absolute;
         bottom: 0;
         left: 0;
-        width: 50px;
-        height: 4px;
-        background-color: #bc002d;
-        border-radius: 2px;
+        width: 0;
+        height: 2px;
+        background: var(--primary-red);
+        transition: width 0.3s ease;
       }
 
-      /* Tarjetas de proyecto */
-      .project-card {
-        background-color: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      .nav-links a:hover {
+        color: var(--primary-red);
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--primary-red);
+        cursor: pointer;
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          var(--white) 0%,
+          var(--off-white) 100%
+        );
+        position: relative;
+        padding: 6rem 2rem 4rem;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("https://image.qwenlm.ai/public_source/690d6f8c-95d6-4baa-a998-bfc1591582ba/183b653f0-1ba1-4203-9e3f-8068c39dbad1.png")
+          center/cover;
+        opacity: 0.1;
+        z-index: 0;
+      }
+
+      .hero-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-text {
+        animation: fadeInLeft 1s ease;
+      }
+
+      .hero-text h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 3.5rem;
+        color: var(--dark-gray);
+        margin-bottom: 1rem;
+        line-height: 1.2;
+      }
+
+      .hero-text h1 span {
+        color: var(--primary-red);
+      }
+
+      .hero-text .jp-name {
+        font-size: 1.5rem;
+        color: var(--secondary-red);
+        margin-bottom: 1.5rem;
+        font-weight: 300;
+      }
+
+      .hero-text .title {
+        font-size: 1.3rem;
+        color: var(--text-gray);
+        margin-bottom: 2rem;
+        font-weight: 500;
+      }
+
+      .hero-text p {
+        font-size: 1.1rem;
+        color: var(--text-gray);
+        margin-bottom: 2rem;
+        line-height: 1.8;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: 2px solid transparent;
+      }
+
+      .btn-primary {
+        background: var(--primary-red);
+        color: var(--white);
+      }
+
+      .btn-primary:hover {
+        background: var(--secondary-red);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--primary-red);
+        border-color: var(--primary-red);
+      }
+
+      .btn-outline:hover {
+        background: var(--primary-red);
+        color: var(--white);
+        transform: translateY(-3px);
+      }
+
+      .hero-image {
+        animation: fadeInRight 1s ease;
+        position: relative;
+      }
+
+      .hero-image-container {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .hero-image-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(196, 30, 58, 0.1),
+          transparent
+        );
+        z-index: 1;
+      }
+
+      .hero-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.5s ease;
+      }
+
+      .hero-image-container:hover img {
+        transform: scale(1.05);
+      }
+
+      .japanese-pattern {
+        position: absolute;
+        opacity: 0.05;
+        z-index: 0;
+      }
+
+      .pattern-1 {
+        top: 10%;
+        right: 5%;
+        font-size: 20rem;
+        color: var(--primary-red);
+      }
+
+      .pattern-2 {
+        bottom: 10%;
+        left: 5%;
+        font-size: 15rem;
+        color: var(--primary-red);
+      }
+
+      /* Section Styles */
+      section {
+        padding: 6rem 2rem;
+        position: relative;
+      }
+
+      .section-container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .section-title h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        color: var(--dark-gray);
+        margin-bottom: 1rem;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-title h2::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: var(--primary-red);
+      }
+
+      .section-title .jp-subtitle {
+        font-size: 1.2rem;
+        color: var(--primary-red);
+        margin-top: 0.5rem;
+        font-weight: 300;
+      }
+
+      /* About Section */
+      .about {
+        background: var(--off-white);
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 3rem;
+        align-items: start;
+      }
+
+      .about-card {
+        background: var(--white);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+        text-align: center;
+      }
+
+      .about-card .avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--primary-red),
+          var(--accent-red)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 3rem;
+        color: var(--white);
+        font-weight: 700;
+      }
+
+      .about-info h3 {
+        font-size: 1.5rem;
+        color: var(--dark-gray);
+        margin-bottom: 0.5rem;
+      }
+
+      .about-info .role {
+        color: var(--primary-red);
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+      }
+
+      .contact-list {
+        list-style: none;
+        text-align: left;
+      }
+
+      .contact-list li {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--light-gray);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .contact-list li:last-child {
+        border-bottom: none;
+      }
+
+      .contact-list i {
+        color: var(--primary-red);
+        width: 20px;
+      }
+
+      .contact-list a {
+        color: var(--text-gray);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .contact-list a:hover {
+        color: var(--primary-red);
+      }
+
+      .about-description {
+        background: var(--white);
+        padding: 2.5rem;
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+      }
+
+      .about-description p {
+        color: var(--text-gray);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+      }
+
+      /* Skills Section */
+      .skills {
+        background: var(--white);
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .skill-category {
+        background: var(--off-white);
+        padding: 2rem;
+        border-radius: 15px;
+        border-left: 4px solid var(--primary-red);
         transition:
           transform 0.3s ease,
           box-shadow 0.3s ease;
-        overflow: hidden; /* Para que la imagen no se salga con bordes redondeados */
-      }
-      .project-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-      }
-      .project-card img {
-        width: 100%;
-        height: 200px; /* Altura fija para las imágenes de proyecto */
-        object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
       }
 
-      /* Botones */
-      .btn {
-        display: inline-block;
-        padding: 0.75rem 1.5rem;
-        border-radius: 8px;
+      .skill-category:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .skill-category h3 {
+        font-size: 1.3rem;
+        color: var(--dark-gray);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .skill-category h3 i {
+        color: var(--primary-red);
+      }
+
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .skill-tag {
+        background: var(--white);
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        color: var(--dark-gray);
+        border: 1px solid var(--light-gray);
+        transition: all 0.3s ease;
+      }
+
+      .skill-tag:hover {
+        background: var(--primary-red);
+        color: var(--white);
+        border-color: var(--primary-red);
+      }
+
+      /* Experience Section */
+      .experience {
+        background: linear-gradient(
+          135deg,
+          var(--off-white) 0%,
+          var(--white) 100%
+        );
+      }
+
+      .timeline {
+        position: relative;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          var(--primary-red),
+          var(--accent-red)
+        );
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 3rem;
+        width: 50%;
+        padding: 0 2rem;
+      }
+
+      .timeline-item:nth-child(odd) {
+        left: 0;
+        text-align: right;
+      }
+
+      .timeline-item:nth-child(even) {
+        left: 50%;
+        text-align: left;
+      }
+
+      .timeline-dot {
+        position: absolute;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        background: var(--primary-red);
+        border-radius: 50%;
+        border: 4px solid var(--white);
+        box-shadow: 0 0 0 4px rgba(196, 30, 58, 0.2);
+      }
+
+      .timeline-item:nth-child(odd) .timeline-dot {
+        right: -10px;
+      }
+
+      .timeline-item:nth-child(even) .timeline-dot {
+        left: -10px;
+      }
+
+      .timeline-content {
+        background: var(--white);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .timeline-content:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .timeline-content h3 {
+        font-size: 1.3rem;
+        color: var(--dark-gray);
+        margin-bottom: 0.5rem;
+      }
+
+      .timeline-content .company {
+        color: var(--primary-red);
         font-weight: 600;
-        transition:
-          background-color 0.3s ease,
-          color 0.3s ease;
-        text-decoration: none;
-      }
-      .btn-primary {
-        background-color: #bc002d;
-        color: white;
-      }
-      .btn-primary:hover {
-        background-color: #a00026; /* Un rojo un poco más oscuro */
-      }
-      .btn-secondary {
-        background-color: transparent;
-        color: #bc002d;
-        border: 2px solid #bc002d;
-      }
-      .btn-secondary:hover {
-        background-color: #bc002d;
-        color: white;
+        margin-bottom: 0.5rem;
       }
 
-      /* Animaciones de scroll */
-      .scroll-animate {
+      .timeline-content .period {
+        color: var(--text-gray);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .timeline-content ul {
+        list-style: none;
+        text-align: left;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content ul {
+        text-align: right;
+      }
+
+      .timeline-content li {
+        padding: 0.5rem 0;
+        color: var(--text-gray);
+        position: relative;
+        padding-left: 1.5rem;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content li {
+        padding-left: 0;
+        padding-right: 1.5rem;
+      }
+
+      .timeline-content li::before {
+        content: "•";
+        color: var(--primary-red);
+        position: absolute;
+        left: 0;
+        font-size: 1.2rem;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content li::before {
+        left: auto;
+        right: 0;
+      }
+
+      /* Education Section */
+      .education {
+        background: var(--white);
+      }
+
+      .education-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+      }
+
+      .education-card {
+        background: var(--off-white);
+        padding: 2rem;
+        border-radius: 15px;
+        border-top: 4px solid var(--primary-red);
+        transition: all 0.3s ease;
+      }
+
+      .education-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .education-card h3 {
+        font-size: 1.3rem;
+        color: var(--dark-gray);
+        margin-bottom: 0.5rem;
+      }
+
+      .education-card .institution {
+        color: var(--primary-red);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .education-card .period {
+        color: var(--text-gray);
+        font-size: 0.9rem;
+      }
+
+      /* Projects Section */
+      .projects {
+        background: linear-gradient(
+          135deg,
+          var(--off-white) 0%,
+          var(--white) 100%
+        );
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2.5rem;
+      }
+
+      .project-card {
+        background: var(--white);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: all 0.4s ease;
+      }
+
+      .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .project-image {
+        position: relative;
+        height: 220px;
+        overflow: hidden;
+      }
+
+      .project-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .project-card:hover .project-image img {
+        transform: scale(1.1);
+      }
+
+      .project-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          to bottom,
+          transparent 0%,
+          rgba(196, 30, 58, 0.9) 100%
+        );
+        display: flex;
+        align-items: flex-end;
+        padding: 1.5rem;
         opacity: 0;
-        transform: translateY(30px);
-        transition:
-          opacity 0.6s ease-out,
-          transform 0.6s ease-out;
+        transition: opacity 0.3s ease;
       }
-      .scroll-animate.visible {
+
+      .project-card:hover .project-overlay {
         opacity: 1;
-        transform: translateY(0);
       }
 
-      /* Estilo para el footer */
+      .project-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .project-links a {
+        width: 45px;
+        height: 45px;
+        background: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-red);
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .project-links a:hover {
+        background: var(--primary-red);
+        color: var(--white);
+        transform: scale(1.1);
+      }
+
+      .project-content {
+        padding: 2rem;
+      }
+
+      .project-content h3 {
+        font-size: 1.4rem;
+        color: var(--dark-gray);
+        margin-bottom: 0.75rem;
+      }
+
+      .project-content p {
+        color: var(--text-gray);
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+      }
+
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .project-tech span {
+        background: var(--off-white);
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        color: var(--primary-red);
+        border: 1px solid rgba(196, 30, 58, 0.2);
+      }
+
+      /* Courses Section */
+      .courses {
+        background: var(--white);
+      }
+
+      .courses-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .course-card {
+        background: var(--off-white);
+        padding: 2rem;
+        border-radius: 15px;
+        display: flex;
+        align-items: flex-start;
+        gap: 1.5rem;
+        transition: all 0.3s ease;
+        border-left: 4px solid var(--primary-red);
+      }
+
+      .course-card:hover {
+        transform: translateX(10px);
+        box-shadow: var(--shadow);
+      }
+
+      .course-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-red),
+          var(--accent-red)
+        );
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        font-size: 1.5rem;
+        flex-shrink: 0;
+      }
+
+      .course-info h3 {
+        font-size: 1.2rem;
+        color: var(--dark-gray);
+        margin-bottom: 0.5rem;
+      }
+
+      .course-info .platform {
+        color: var(--primary-red);
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .course-info .year {
+        color: var(--text-gray);
+        font-size: 0.9rem;
+      }
+
+      /* Contact Section */
+      .contact {
+        background: linear-gradient(
+          135deg,
+          var(--primary-red) 0%,
+          var(--secondary-red) 100%
+        );
+        color: var(--white);
+      }
+
+      .contact .section-title h2 {
+        color: var(--white);
+      }
+
+      .contact .section-title h2::after {
+        background: var(--white);
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+
+      .contact-info h3 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        font-family: "Playfair Display", serif;
+      }
+
+      .contact-info p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        line-height: 1.8;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-links a {
+        width: 50px;
+        height: 50px;
+        background: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-red);
+        font-size: 1.3rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .social-links a:hover {
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .contact-form {
+        background: var(--white);
+        padding: 3rem;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        color: var(--dark-gray);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid var(--light-gray);
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary-red);
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 1rem;
+        background: var(--primary-red);
+        color: var(--white);
+        border: none;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .submit-btn:hover {
+        background: var(--secondary-red);
+        transform: translateY(-3px);
+      }
+
+      /* Footer */
       footer {
-        border-top: 2px solid #e0e0e0;
+        background: var(--dark-gray);
+        color: var(--white);
+        padding: 3rem 2rem;
+        text-align: center;
       }
 
-      /* Iconos de contacto */
-      .contact-icon {
-        font-size: 1.5rem; /* 24px */
-        transition: color 0.3s ease;
-      }
-      .contact-icon:hover {
-        color: #bc002d;
+      footer p {
+        opacity: 0.8;
       }
 
-      /* Estilo para el menú móvil */
-      #mobile-menu {
-        transform: translateX(100%);
-        transition: transform 0.3s ease-in-out;
+      footer .heart {
+        color: var(--primary-red);
       }
-      #mobile-menu.open {
-        transform: translateX(0);
+
+      /* Animations */
+      @keyframes fadeInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes fadeInRight {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-in {
+        opacity: 0;
+        animation: fadeInUp 0.8s ease forwards;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1024px) {
+        .hero-content {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+
+        .hero-text h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero-buttons {
+          justify-content: center;
+        }
+
+        .hero-image {
+          max-width: 500px;
+          margin: 0 auto;
+        }
+
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .timeline::before {
+          left: 20px;
+        }
+
+        .timeline-item {
+          width: 100%;
+          left: 0 !important;
+          text-align: left !important;
+          padding-left: 60px;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot,
+        .timeline-item:nth-child(even) .timeline-dot {
+          left: 10px;
+          right: auto;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content ul,
+        .timeline-item:nth-child(even) .timeline-content ul {
+          text-align: left;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content li,
+        .timeline-item:nth-child(even) .timeline-content li {
+          padding-left: 1.5rem;
+          padding-right: 0;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content li::before,
+        .timeline-item:nth-child(even) .timeline-content li::before {
+          left: 0;
+          right: auto;
+        }
+
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: var(--white);
+          flex-direction: column;
+          padding: 1rem 2rem;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .hero-text h1 {
+          font-size: 2rem;
+        }
+
+        .hero-text .jp-name {
+          font-size: 1.2rem;
+        }
+
+        .section-title h2 {
+          font-size: 2rem;
+        }
+
+        .projects-grid,
+        .education-grid,
+        .courses-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .contact-form {
+          padding: 2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero {
+          padding: 5rem 1rem 3rem;
+        }
+
+        .hero-text h1 {
+          font-size: 1.8rem;
+        }
+
+        .btn {
+          padding: 0.8rem 1.5rem;
+          font-size: 0.9rem;
+        }
+
+        section {
+          padding: 4rem 1rem;
+        }
+      }
+
+      /* Scroll Progress Bar */
+      .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: linear-gradient(
+          to right,
+          var(--primary-red),
+          var(--accent-red)
+        );
+        z-index: 1001;
+        transition: width 0.1s ease;
       }
     </style>
   </head>
-  <body class="bg-gray-50 text-gray-800">
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-4 px-6 md:px-12">
-      <div class="container mx-auto flex justify-between items-center">
-        <a href="#" class="text-2xl font-bold japanese-red">M.A.F.B.</a>
-        <div class="hidden md:flex space-x-6">
-          <a
-            href="#about"
-            class="text-gray-700 hover:japanese-red transition duration-300"
-            >Sobre Mí</a
-          >
-          <a
-            href="#experience"
-            class="text-gray-700 hover:japanese-red transition duration-300"
-            >Experiencia</a
-          >
-          <a
-            href="#projects"
-            class="text-gray-700 hover:japanese-red transition duration-300"
-            >Proyectos</a
-          >
-          <a
-            href="#skills"
-            class="text-gray-700 hover:japanese-red transition duration-300"
-            >Habilidades</a
-          >
-          <a
-            href="#education"
-            class="text-gray-700 hover:japanese-red transition duration-300"
-            >Educación</a
-          >
-          <a
-            href="#contact"
-            class="text-gray-700 hover:japanese-red transition duration-300"
-            >Contacto</a
-          >
-        </div>
-        <div class="md:hidden">
-          <button id="menu-button" class="text-gray-700 focus:outline-none">
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16m-7 6h7"
-              ></path>
-            </svg>
-          </button>
-        </div>
+  <body>
+    <!-- Sakura Animation Container -->
+    <div class="sakura-container" id="sakuraContainer"></div>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+      <div class="nav-container">
+        <a href="#" class="logo">
+          MF
+          <span class="logo-jp">フローレス</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#sobre-mi">Sobre Mí</a></li>
+          <li><a href="#habilidades">Habilidades</a></li>
+          <li><a href="#experiencia">Experiencia</a></li>
+          <li><a href="#educacion">Educación</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
     </nav>
 
-    <div
-      id="mobile-menu"
-      class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-40 pt-16 md:hidden"
-    >
-      <a
-        href="#about"
-        class="block py-3 px-6 text-gray-700 hover:bg-red-100 hover:japanese-red transition duration-300 mobile-menu-link"
-        >Sobre Mí</a
-      >
-      <a
-        href="#experience"
-        class="block py-3 px-6 text-gray-700 hover:bg-red-100 hover:japanese-red transition duration-300 mobile-menu-link"
-        >Experiencia</a
-      >
-      <a
-        href="#projects"
-        class="block py-3 px-6 text-gray-700 hover:bg-red-100 hover:japanese-red transition duration-300 mobile-menu-link"
-        >Proyectos</a
-      >
-      <a
-        href="#skills"
-        class="block py-3 px-6 text-gray-700 hover:bg-red-100 hover:japanese-red transition duration-300 mobile-menu-link"
-        >Habilidades</a
-      >
-      <a
-        href="#education"
-        class="block py-3 px-6 text-gray-700 hover:bg-red-100 hover:japanese-red transition duration-300 mobile-menu-link"
-        >Educación</a
-      >
-      <a
-        href="#contact"
-        class="block py-3 px-6 text-gray-700 hover:bg-red-100 hover:japanese-red transition duration-300 mobile-menu-link"
-        >Contacto</a
-      >
-    </div>
-
-    <header
-      id="hero"
-      class="min-h-screen flex items-center justify-center bg-white pt-16"
-    >
-      <div class="container mx-auto text-center px-6 py-20">
-        <h1 class="text-5xl md:text-7xl font-bold mb-4 scroll-animate">
-          Michael Arley <span class="japanese-red">Flores Benavides</span>
-        </h1>
-        <p
-          class="text-xl md:text-2xl text-gray-600 mb-8 scroll-animate"
-          style="transition-delay: 0.2s"
-        >
-          Tecnólogo en Sistematización de Datos | Desarrollador de Software
-        </p>
-        <div class="scroll-animate" style="transition-delay: 0.4s">
-          <a href="#projects" class="btn btn-primary mr-4 mb-4 md:mb-0"
-            >Ver Proyectos</a
-          >
-          <a href="#contact" class="btn btn-secondary">Contáctame</a>
-        </div>
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+      <div class="japanese-pattern pattern-1">
+        <i class="fas fa-torii-gate"></i>
       </div>
-    </header>
-
-    <main class="container mx-auto px-6 py-12">
-      <section id="about" class="py-16 scroll-animate">
-        <h2 class="section-title text-center">Sobre Mí</h2>
-        <div
-          class="max-w-3xl mx-auto text-center text-lg text-gray-700 leading-relaxed"
-        >
-          <p class="mb-4">
-            Desarrollador de software con formación como Tecnólogo en
-            Sistematización de Datos y estudiante avanzado de Ingeniería en
-            Telemática en la Universidad Distrital Francisco José de Caldas.
-          </p>
-          <p class="mb-4">
-            Cuento con experiencia en el desarrollo de aplicaciones web y de
-            escritorio utilizando Java, Python, JavaScript y React. Apasionado
-            por la resolución de problemas, la optimización de procesos y el
-            aprendizaje continuo de nuevas tecnologías para crear soluciones
-            eficientes y escalables.
+      <div class="japanese-pattern pattern-2">
+        <i class="fas fa-fan"></i>
+      </div>
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Michael <span>Flores</span></h1>
+          <p class="jp-name">マイケル・フローレス</p>
+          <p class="title">
+            Tecnólogo en Sistematización de Datos | Estudiante de Ingeniería en
+            Telemática
           </p>
           <p>
-            Busco una oportunidad para aplicar mis habilidades técnicas en un
-            entorno desafiante y contribuir al éxito de proyectos innovadores.
+            Especialista en desarrollo Java, gestión de bases de datos SQL y
+            creación de soluciones escalables con React, Node.js y React Native.
+            Enfocado en optimización de procesos y software de alto rendimiento.
           </p>
-        </div>
-      </section>
-
-      <section id="experience" class="py-16 scroll-animate">
-        <h2 class="section-title text-center">Experiencia Laboral</h2>
-        <div class="space-y-12 max-w-4xl mx-auto">
-          <div
-            class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-japanese-red"
-          >
-            <h3 class="text-2xl font-semibold japanese-red mb-1">
-              Desarrollador Java Junior
-            </h3>
-            <p class="text-gray-600 mb-2">
-              Giitic S.A.S | Bogotá, Colombia (Febrero 2022 - Septiembre 2022)
-            </p>
-            <ul class="list-disc list-inside text-gray-700 space-y-1">
-              <li>
-                Desarrollé e implementé nuevos módulos para un sistema ERP
-                utilizando Java, mejorando la funcionalidad para los clientes.
-              </li>
-              <li>
-                Realicé consultas y optimicé bases de datos en SQL para
-                garantizar la integridad y el rendimiento de la información.
-              </li>
-              <li>
-                Colaboré en el mantenimiento de interfaces de usuario,
-                actualizando componentes y solucionando errores en páginas
-                XHTML.
-              </li>
-              <li>
-                Participé activamente en el ciclo de vida del desarrollo de
-                software, desde el análisis de requisitos hasta las pruebas y el
-                despliegue.
-              </li>
-            </ul>
-          </div>
-          <div
-            class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-japanese-red"
-          >
-            <h3 class="text-2xl font-semibold japanese-red mb-1">
-              Asistente de Oficina
-            </h3>
-            <p class="text-gray-600 mb-2">
-              Ger 8 | Bogotá, Colombia (Febrero 2017 - Noviembre 2021)
-            </p>
-            <ul class="list-disc list-inside text-gray-700 space-y-1">
-              <li>
-                Gestioné el registro y seguimiento de operaciones comerciales,
-                utilizando sistemas internos para asegurar la precisión de los
-                datos.
-              </li>
-              <li>
-                Optimicé tareas de registro de información, mejorando la
-                eficiencia del flujo de trabajo administrativo.
-              </li>
-            </ul>
+          <div class="hero-buttons">
+            <a href="#proyectos" class="btn btn-primary">
+              <i class="fas fa-folder-open"></i>
+              Ver Proyectos
+            </a>
+            <a href="#contacto" class="btn btn-outline">
+              <i class="fas fa-envelope"></i>
+              Contactar
+            </a>
           </div>
         </div>
-      </section>
+        <div class="hero-image">
+          <div class="hero-image-container">
+            <img src="https://picsum.photos/1024" alt="Portfolio Hero" />
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <section id="projects" class="py-16 scroll-animate">
-        <h2 class="section-title text-center">Proyectos Destacados</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-10">
-          <div class="project-card">
-            <img
-              src="https://placehold.co/600x400/BC002D/FFFFFF?text=Página+Anime"
-              alt="[Imagen de Página Anime]"
-              class="w-full h-56 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-xl font-semibold japanese-red mb-2">
-                Página Anime
-              </h3>
-              <p class="text-gray-600 text-sm mb-3">
-                Plataforma interactiva para explorar información sobre animes.
-              </p>
-              <p class="text-xs text-gray-500 mb-3">
-                <strong>Herramientas:</strong> React, HTML, CSS, Firebase,
-                JavaScript
-              </p>
-
-              <a
-                href="https://animesr4.netlify.app/"
-                target="_blank"
-                class="btn btn-primary text-sm"
-                >Ver Demo</a
-              >
-              <a
-                href="https://github.com/michaelfloresb/paginaAnimes"
-                target="_blank"
-                class="btn btn-secondary text-sm"
-                >Ver en GitHub</a
-              >
+    <!-- About Section -->
+    <section class="about" id="sobre-mi">
+      <div class="section-container">
+        <div class="section-title">
+          <h2>Sobre Mí</h2>
+          <p class="jp-subtitle">私について</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-card">
+            <div class="avatar">MF</div>
+            <div class="about-info">
+              <h3>Michael Arley Flores Benavides</h3>
+              <p class="role">Desarrollador Full Stack</p>
+              <ul class="contact-list">
+                <li>
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>Bogotá, Colombia</span>
+                </li>
+                <li>
+                  <i class="fas fa-envelope"></i>
+                  <a href="mailto:michaflobe@gmail.com">michaflobe@gmail.com</a>
+                </li>
+                <li>
+                  <i class="fas fa-phone"></i>
+                  <a href="tel:+573104827716">+57 310 482 7716</a>
+                </li>
+              </ul>
             </div>
           </div>
+          <div class="about-description">
+            <p>
+              Ingeniero Telemático en formación y Tecnólogo en Gestión de
+              Sistemas con sólida experiencia en desarrollo Java y gestión de
+              bases de datos SQL para módulos ERP.
+            </p>
+            <p>
+              Especialista en la creación de soluciones escalables utilizando el
+              stack moderno de JavaScript, incluyendo React, Node.js y React
+              Native. Enfocado en la optimización de procesos y el desarrollo de
+              software de alto rendimiento.
+            </p>
+            <p>
+              Pasionado por la tecnología y el aprendizaje continuo, siempre
+              buscando nuevas formas de mejorar y optimizar soluciones
+              tecnológicas.
+            </p>
+            <div class="social-links" style="margin-top: 2rem">
+              <a href="https://michaelfloresb.github.io/" target="_blank">
+                <i class="fas fa-globe"></i>
+              </a>
+              <a href="https://github.com/michaelfloresb" target="_blank">
+                <i class="fab fa-github"></i>
+              </a>
+              <a
+                href="https://linkedin.com/in/michaelarleyflores"
+                target="_blank"
+              >
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- Skills Section -->
+    <section class="skills" id="habilidades">
+      <div class="section-container">
+        <div class="section-title">
+          <h2>Habilidades Técnicas</h2>
+          <p class="jp-subtitle">技術スキル</p>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-category">
+            <h3><i class="fas fa-code"></i> Lenguajes de Programación</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Java</span>
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">C</span>
+              <span class="skill-tag">C++</span>
+              <span class="skill-tag">C#</span>
+              <span class="skill-tag">JavaScript</span>
+            </div>
+          </div>
+          <div class="skill-category">
+            <h3><i class="fas fa-laptop-code"></i> Tecnologías Web</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">HTML</span>
+              <span class="skill-tag">CSS</span>
+              <span class="skill-tag">JavaScript</span>
+            </div>
+          </div>
+          <div class="skill-category">
+            <h3><i class="fas fa-layer-group"></i> Frameworks y Bibliotecas</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">React.js</span>
+              <span class="skill-tag">React Native</span>
+            </div>
+          </div>
+          <div class="skill-category">
+            <h3><i class="fas fa-database"></i> Bases de Datos</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">SQL</span>
+              <span class="skill-tag">Firebase</span>
+            </div>
+          </div>
+          <div class="skill-category">
+            <h3><i class="fas fa-server"></i> Plataformas y Entornos</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">Flask</span>
+              <span class="skill-tag">APIs</span>
+            </div>
+          </div>
+          <div class="skill-category">
+            <h3><i class="fas fa-tools"></i> Herramientas</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">GitHub</span>
+              <span class="skill-tag">Vite</span>
+              <span class="skill-tag">Electron</span>
+              <span class="skill-tag">Expo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience" id="experiencia">
+      <div class="section-container">
+        <div class="section-title">
+          <h2>Experiencia Laboral</h2>
+          <p class="jp-subtitle">職務経験</p>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>Desarrollador Java (Junior)</h3>
+              <p class="company">Giitic S.A.S, Bogotá, Colombia</p>
+              <p class="period">Febrero 2022 - Septiembre 2022</p>
+              <ul>
+                <li>Desarrollo de módulos en Java</li>
+                <li>Manejo y optimización de bases de datos SQL</li>
+                <li>Mantenimiento y actualización de páginas XHTML</li>
+              </ul>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>Asistente de Oficina</h3>
+              <p class="company">Ger 8, Bogotá, Colombia</p>
+              <p class="period">Febrero 2017 - Noviembre 2021</p>
+              <ul>
+                <li>
+                  Registro y seguimiento de compras y ventas de la empresa
+                </li>
+                <li>Carga y gestión de información en sistemas internos</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education" id="educacion">
+      <div class="section-container">
+        <div class="section-title">
+          <h2>Educación</h2>
+          <p class="jp-subtitle">学歴</p>
+        </div>
+        <div class="education-grid">
+          <div class="education-card">
+            <h3>Ingeniería en Telemática</h3>
+            <p class="institution">
+              Universidad Distrital Francisco José de Caldas
+            </p>
+            <p class="period">Agosto 2018 - Presente</p>
+          </div>
+          <div class="education-card">
+            <h3>Tecnólogo en Sistematización de Datos</h3>
+            <p class="institution">
+              Universidad Distrital Francisco José de Caldas
+            </p>
+            <p class="period">2006 - 2008</p>
+          </div>
+          <div class="education-card">
+            <h3>Bachiller Académico</h3>
+            <p class="institution">I.E.D Orlando Fals Borda</p>
+            <p class="period">Febrero 2001 - Diciembre 2013</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses">
+      <div class="section-container">
+        <div class="section-title">
+          <h2>Cursos Complementarios</h2>
+          <p class="jp-subtitle">追加コース</p>
+        </div>
+        <div class="courses-grid">
+          <div class="course-card">
+            <div class="course-icon">
+              <i class="fab fa-react"></i>
+            </div>
+            <div class="course-info">
+              <h3>React Native Expo</h3>
+              <p class="platform">Udemy</p>
+              <p class="year">2025</p>
+            </div>
+          </div>
+          <div class="course-card">
+            <div class="course-icon">
+              <i class="fab fa-python"></i>
+            </div>
+            <div class="course-info">
+              <h3>Python</h3>
+              <p class="platform">Coursera</p>
+              <p class="year">2020</p>
+            </div>
+          </div>
+          <div class="course-card">
+            <div class="course-icon">
+              <i class="fab fa-js"></i>
+            </div>
+            <div class="course-info">
+              <h3>HTML, CSS, JavaScript, Node.js</h3>
+              <p class="platform">Udemy</p>
+              <p class="year">2022</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="proyectos">
+      <div class="section-container">
+        <div class="section-title">
+          <h2>Proyectos Destacados</h2>
+          <p class="jp-subtitle">注目プロジェクト</p>
+        </div>
+        <div class="projects-grid">
           <div class="project-card">
-            <img
-              src="https://placehold.co/600x400/333333/FFFFFF?text=Simulador+Blockchain"
-              alt="[Imagen de Simulador Blockchain]"
-              class="w-full h-56 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-xl font-semibold japanese-red mb-2">
-                Simulador Blockchain
-              </h3>
-              <p class="text-gray-600 text-sm mb-3">
+            <div class="project-image">
+              <img
+                src="https://raw.githubusercontent.com/michaelfloresb/paginaAnimes/refs/heads/main/public/Img/Screenshots/animes_home.png"
+                alt="Página Anime"
+              />
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a
+                    href="https://github.com/michaelfloresb/paginaAnimes"
+                    target="_blank"
+                    title="GitHub"
+                  >
+                    <i class="fab fa-github"></i>
+                  </a>
+                  <a
+                    href="https://animesr4.netlify.app/"
+                    target="_blank"
+                    title="Demo"
+                  >
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Página Anime</h3>
+              <p>
+                Plataforma interactiva para explorar información sobre animes.
+              </p>
+              <div class="project-tech">
+                <span>React</span>
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>Firebase</span>
+                <span>JavaScript</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-image">
+              <img
+                src="https://raw.githubusercontent.com/michaelfloresb/anime_list/refs/heads/main/public/img/screenShoot%20(2).png"
+                alt="Anime List"
+              />
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a
+                    href="https://github.com/michaelfloresb/anime_list"
+                    target="_blank"
+                    title="GitHub"
+                  >
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Anime List</h3>
+              <p>Gestor de listas para animes, utilizando la API de Jikan.</p>
+              <div class="project-tech">
+                <span>React</span>
+                <span>Vite</span>
+                <span>Jikan API</span>
+                <span>Firebase</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-image">
+              <img
+                src="https://raw.githubusercontent.com/michaelfloresb/cronometro_rubik/main/public/img/home.png"
+                alt="Cronómetro Rubik"
+              />
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a
+                    href="https://github.com/michaelfloresb/cronometro_rubik"
+                    target="_blank"
+                    title="GitHub"
+                  >
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Cronómetro para Cubo de Rubik</h3>
+              <p>
+                Cronómetro para speed cubers, creación de listas de tiempos en
+                diferentes cubos.
+              </p>
+              <div class="project-tech">
+                <span>React</span>
+                <span>Vite</span>
+                <span>Firebase</span>
+                <span>JavaScript</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-image">
+              <img
+                src="https://raw.githubusercontent.com/michaelfloresb/simulador_blockchain/refs/heads/main/img/screenshoots/blockChain.png"
+                alt="Simulador Blockchain"
+              />
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a
+                    href="https://github.com/michaelfloresb/simulador_blockchain"
+                    target="_blank"
+                    title="GitHub"
+                  >
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Simulador Blockchain</h3>
+              <p>
                 Simulador educativo que replica el funcionamiento básico de una
                 cadena de bloques.
               </p>
-              <p class="text-xs text-gray-500 mb-3">
-                <strong>Herramientas:</strong> Python, HTML, CSS, Flask, JSON
-              </p>
-              <a
-                href="https://github.com/michaelfloresb/simulador_blockchain"
-                target="_blank"
-                class="btn btn-secondary text-sm"
-                >Ver en GitHub</a
-              >
+              <div class="project-tech">
+                <span>Python</span>
+                <span>Flask</span>
+                <span>JSON</span>
+                <span>HTML/CSS</span>
+              </div>
             </div>
           </div>
-
           <div class="project-card">
-            <img
-              src="https://placehold.co/600x400/333333/FFFFFF?text=Anime+List"
-              alt="[Imagen de To Do Anime]"
-              class="w-full h-56 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-xl font-semibold japanese-red mb-2">
-                Anime List
-              </h3>
-              <p class="text-gray-600 text-sm mb-3">
-                Aplicación web para gestionar listas de animes.
-              </p>
-              <p class="text-xs text-gray-500 mb-3">
-                <strong>Herramientas:</strong> HTML, CSS, React TS, Jikan API
-              </p>
-              <a
-                href="https://github.com/rey4stro/ToDoAnime"
-                target="_blank"
-                class="btn btn-secondary text-sm"
-                >Ver en GitHub</a
-              >
+            <div class="project-image">
+              <img
+                src="https://raw.githubusercontent.com/michaelfloresb/Anime_List_Electron/refs/heads/main/public/img/detalles.png"
+                alt="Anime List Electron"
+              />
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a
+                    href="https://github.com/michaelfloresb/Anime_List_Electron"
+                    target="_blank"
+                    title="GitHub"
+                  >
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <div class="project-card">
-            <img
-              src="https://placehold.co/600x400/333333/FFFFFF?text=Cronometro+Rubik"
-              alt="[Imagen de To Do Anime]"
-              class="w-full h-56 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-xl font-semibold japanese-red mb-2">
-                Anime List
-              </h3>
-              <p class="text-gray-600 text-sm mb-3">
-                Aplicación web para gestionar tiempos para la resolucion de cubos de rubik.
+            <div class="project-content">
+              <h3>Anime List Electron</h3>
+              <p>
+                Gestor de listas para animes, aplicación de escritorio
+                utilizando Electron.
               </p>
-              <p class="text-xs text-gray-500 mb-3">
-                <strong>Herramientas:</strong> HTML, CSS, React TS, Electron
-              </p>
-              <a
-                href="https://github.com/michaelfloresb/cronometro_rubik"
-                target="_blank"
-                class="btn btn-secondary text-sm"
-                >Ver en GitHub</a
-              >
+              <div class="project-tech">
+                <span>React</span>
+                <span>Electron</span>
+                <span>Vite</span>
+                <span>Jikan API</span>
+              </div>
             </div>
-          </div>
-
-          <div class="project-card">
-            <img
-              src="https://placehold.co/600x400/333333/FFFFFF?text=AnimeList+Electron"
-              alt="[Imagen de To Do Anime]"
-              class="w-full h-56 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-xl font-semibold japanese-red mb-2">
-                Anime List
-              </h3>
-              <p class="text-gray-600 text-sm mb-3">
-                Aplicación de escritorio window para gestionar listas de animes.
-              </p>
-              <p class="text-xs text-gray-500 mb-3">
-                <strong>Herramientas:</strong> HTML, CSS, React TS
-              </p>
-              <a
-                href="https://github.com/michaelfloresb/Anime_List_Electron"
-                target="_blank"
-                class="btn btn-secondary text-sm"
-                >Ver en GitHub</a
-              >
-            </div>
-          </div>
-
-      </section>
-
-      <section id="skills" class="py-16 scroll-animate">
-        <h2 class="section-title text-center">Habilidades Técnicas</h2>
-        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="bg-white p-6 rounded-xl shadow-lg">
-            <h3 class="text-xl font-semibold japanese-red mb-3">
-              Lenguajes de Programación
-            </h3>
-            <ul class="list-disc list-inside text-gray-700 space-y-1">
-              <li>Java</li>
-              <li>Python</li>
-              <li>JavaScript</li>
-              <li>C++</li>
-              <li>C</li>
-              <li>C#</li>
-            </ul>
-          </div>
-          <div class="bg-white p-6 rounded-xl shadow-lg">
-            <h3 class="text-xl font-semibold japanese-red mb-3">
-              Desarrollo Web (Frontend)
-            </h3>
-            <ul class="list-disc list-inside text-gray-700 space-y-1">
-              <li>HTML</li>
-              <li>CSS</li>
-              <li>React.js</li>
-              <li>React ts</li>
-              <li>React Native</li>
-            </ul>
-          </div>
-          <div class="bg-white p-6 rounded-xl shadow-lg">
-            <h3 class="text-xl font-semibold japanese-red mb-3">
-              Desarrollo (Backend)
-            </h3>
-            <ul class="list-disc list-inside text-gray-700 space-y-1">
-              <li>Node.js</li>
-              <li>Flask</li>
-            </ul>
-          </div>
-          <div class="bg-white p-6 rounded-xl shadow-lg">
-            <h3 class="text-xl font-semibold japanese-red mb-3">
-              Bases de Datos y APIs
-            </h3>
-            <ul class="list-disc list-inside text-gray-700 space-y-1">
-              <li>SQL (PostgreSQL, MySQL)</li>
-              <li>Manejo de APIs REST</li>
-              <li>Firebase</li>
-            </ul>
-          </div>
-          <div class="bg-white p-6 rounded-xl shadow-lg md:col-span-2">
-            <h3 class="text-xl font-semibold japanese-red mb-3">
-              Herramientas y Control de Versiones
-            </h3>
-            <ul class="list-disc list-inside text-gray-700 space-y-1">
-              <li>Git</li>
-              <li>GitHub</li>
-              <li>Expo (para React Native)</li>
-            </ul>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="education" class="py-16 scroll-animate">
-        <h2 class="section-title text-center">Educación</h2>
-        <div class="space-y-8 max-w-3xl mx-auto">
-          <div
-            class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-japanese-red"
-          >
-            <h3 class="text-xl font-semibold japanese-red mb-1">
-              Ingeniería en Telemática
-            </h3>
-            <p class="text-gray-600">
-              Universidad Distrital Francisco José de Caldas
-            </p>
-            <p class="text-sm text-gray-500">
-              Agosto 2022 - Presente (Estudiante de últimos semestres)
-            </p>
-          </div>
-          <div
-            class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-japanese-red"
-          >
-            <h3 class="text-xl font-semibold japanese-red mb-1">
-              Tecnólogo en Sistematización de Datos
-            </h3>
-            <p class="text-gray-600">
-              Universidad Distrital Francisco José de Caldas
-            </p>
-            <p class="text-sm text-gray-500">2018 - 2021</p>
-          </div>
-          <div
-            class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-japanese-red"
-          >
-            <h3 class="text-xl font-semibold japanese-red mb-1">
-              Bachiller Académico
-            </h3>
-            <p class="text-gray-600">I.E.D Orlando Fals Borda</p>
-            <p class="text-sm text-gray-500">Febrero 2001 - Diciembre 2013</p>
-          </div>
+    <!-- Contact Section -->
+    <section class="contact" id="contacto">
+      <div class="section-container">
+        <div class="section-title">
+          <h2>Contacto</h2>
+          <p class="jp-subtitle">お問い合わせ</p>
         </div>
-      </section>
-
-      <section id="courses" class="py-16 scroll-animate">
-        <h2 class="section-title text-center">Formación Complementaria</h2>
-        <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
-          <ul class="space-y-4">
-            <li>
-              <h3 class="text-lg font-semibold japanese-red">
-                React Native Expo: Aplicaciones nativas para iOS y Android
-              </h3>
-              <p class="text-sm text-gray-600">Udemy, 2025</p>
-            </li>
-            <li>
-              <h3 class="text-lg font-semibold japanese-red">
-                Full-Stack Web Development con HTML, CSS, JavaScript, Node.js
-              </h3>
-              <p class="text-sm text-gray-600">Udemy, 2022</p>
-            </li>
-            <li>
-              <h3 class="text-lg font-semibold japanese-red">
-                Especialización en Python
-              </h3>
-              <p class="text-sm text-gray-600">Coursera, 2020</p>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <section id="contact" class="py-16 bg-white scroll-animate">
-        <div class="container mx-auto px-6">
-          <h2 class="section-title text-center">Contacto</h2>
-          <div class="max-w-2xl mx-auto text-center">
-            <p class="text-lg text-gray-700 mb-6">
-              ¡Gracias por visitar mi portafolio! Si tienes alguna pregunta o
-              proyecto en mente, no dudes en contactarme.
+        <div class="contact-grid">
+          <div class="contact-info">
+            <h3>¡Hablemos!</h3>
+            <p>
+              Estoy siempre abierto a nuevas oportunidades y proyectos. Si
+              tienes alguna pregunta o quieres trabajar juntos, no dudes en
+              contactarme.
             </p>
-            <p class="text-lg text-gray-700 mb-2">
-              <i class="fas fa-envelope mr-2 japanese-red"></i>
-              <a href="mailto:michaflobe@gmail.com" class="hover:underline"
-                >michaflobe@gmail.com</a
-              >
-            </p>
-            <p class="text-lg text-gray-700 mb-6">
-              <i class="fas fa-phone mr-2 japanese-red"></i> +57 310 482 7716
-            </p>
-            <div class="flex justify-center space-x-6">
-              <a
-                href="https://www.linkedin.com/in/michael-arley-flores"
-                target="_blank"
-                class="text-gray-600 hover:japanese-red transition duration-300"
-              >
-                <i class="fab fa-linkedin contact-icon"></i>
+            <div class="social-links">
+              <a href="https://michaelfloresb.github.io/" target="_blank">
+                <i class="fas fa-globe"></i>
+              </a>
+              <a href="https://github.com/michaelfloresb" target="_blank">
+                <i class="fab fa-github"></i>
               </a>
               <a
-                href="https://github.com/rey4stro/"
+                href="https://linkedin.com/in/michaelarleyflores"
                 target="_blank"
-                class="text-gray-600 hover:japanese-red transition duration-300"
               >
-                <i class="fab fa-github contact-icon"></i>
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="mailto:michaflobe@gmail.com">
+                <i class="fas fa-envelope"></i>
               </a>
             </div>
           </div>
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="name">Nombre</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                placeholder="Tu nombre"
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="tu@email.com"
+              />
+            </div>
+            <div class="form-group">
+              <label for="message">Mensaje</label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                placeholder="Tu mensaje..."
+              ></textarea>
+            </div>
+            <button type="submit" class="submit-btn">
+              <i class="fas fa-paper-plane"></i> Enviar Mensaje
+            </button>
+          </form>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
 
-    <footer class="py-8 text-center text-gray-600 text-sm">
+    <!-- Footer -->
+    <footer>
       <p>
-        &copy; <span id="currentYear"></span> Michael Arley Flores Benavides.
-        Todos los derechos reservados.
+        © 2026 Michael Flores. Hecho con <span class="heart">❤</span> y
+        <span class="heart">🌸</span>
       </p>
     </footer>
 
     <script>
-      // Smooth scrolling for navigation links
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          const targetId = this.getAttribute("href");
-          const targetElement = document.querySelector(targetId);
-          if (targetElement) {
-            targetElement.scrollIntoView({
-              behavior: "smooth",
-            });
-          }
-          // Close mobile menu if open
-          const mobileMenu = document.getElementById("mobile-menu");
-          if (mobileMenu.classList.contains("open")) {
-            mobileMenu.classList.remove("open");
-          }
-        });
-      });
+      // Sakura Animation
+      function createSakura() {
+        const container = document.getElementById("sakuraContainer");
+        const sakura = document.createElement("div");
+        sakura.classList.add("sakura");
+        sakura.style.left = Math.random() * 100 + "%";
+        sakura.style.animationDuration = Math.random() * 5 + 5 + "s";
+        sakura.style.animationDelay = Math.random() * 5 + "s";
+        container.appendChild(sakura);
 
-      // Navbar scroll effect
+        setTimeout(() => {
+          sakura.remove();
+        }, 10000);
+      }
+
+      // Create multiple sakura petals
+      for (let i = 0; i < 20; i++) {
+        setTimeout(createSakura, i * 500);
+      }
+
+      setInterval(createSakura, 2000);
+
+      // Navbar Scroll Effect
       const navbar = document.getElementById("navbar");
       window.addEventListener("scroll", () => {
         if (window.scrollY > 50) {
-          navbar.classList.add("scrolled", "bg-white", "shadow-md");
+          navbar.classList.add("scrolled");
         } else {
-          navbar.classList.remove("scrolled", "bg-white", "shadow-md");
+          navbar.classList.remove("scrolled");
         }
       });
 
-      // Scroll animations
-      const scrollElements = document.querySelectorAll(".scroll-animate");
-      const elementInView = (el, dividend = 1) => {
-        const elementTop = el.getBoundingClientRect().top;
-        return (
-          elementTop <=
-          (window.innerHeight || document.documentElement.clientHeight) /
-            dividend
-        );
-      };
-      const displayScrollElement = (element) => {
-        element.classList.add("visible");
-      };
-      const hideScrollElement = (element) => {
-        element.classList.remove("visible");
-      };
-      const handleScrollAnimation = () => {
-        scrollElements.forEach((el) => {
-          if (elementInView(el, 1.25)) {
-            displayScrollElement(el);
-          } else {
-            // Opcional: para que la animación se repita al scrollear hacia arriba
-            // hideScrollElement(el);
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const navLinks = document.getElementById("navLinks");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+      });
+
+      // Close mobile menu when clicking on a link
+      navLinks.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("active");
+        });
+      });
+
+      // Scroll Progress Bar
+      const scrollProgress = document.getElementById("scrollProgress");
+      window.addEventListener("scroll", () => {
+        const scrollTop =
+          document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        const scrollPercent = (scrollTop / scrollHeight) * 100;
+        scrollProgress.style.width = scrollPercent + "%";
+      });
+
+      // Smooth Scroll for Navigation Links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
           }
         });
+      });
+
+      // Intersection Observer for Animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
       };
-      window.addEventListener("scroll", () => {
-        handleScrollAnimation();
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("fade-in");
+          }
+        });
+      }, observerOptions);
+
+      // Observe all sections and cards
+      document
+        .querySelectorAll(
+          "section, .skill-category, .timeline-content, .education-card, .course-card, .project-card",
+        )
+        .forEach((el) => {
+          observer.observe(el);
+        });
+
+      // Contact Form Handler
+      const contactForm = document.getElementById("contactForm");
+      contactForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const message = document.getElementById("message").value;
+
+        // Create mailto link
+        const subject = encodeURIComponent(
+          "Mensaje desde Portafolio - " + name,
+        );
+        const body = encodeURIComponent(
+          `Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`,
+        );
+
+        window.open(
+          `mailto:michaflobe@gmail.com?subject=${subject}&body=${body}`,
+          "_blank",
+        );
+
+        // Show success message
+        alert(
+          "¡Gracias por tu mensaje! Te redirigiré a tu cliente de correo para enviar el mensaje.",
+        );
+        contactForm.reset();
       });
-      // Trigger animations for elements already in view on load
-      handleScrollAnimation();
 
-      // Mobile menu toggle
-      const menuButton = document.getElementById("menu-button");
-      const mobileMenu = document.getElementById("mobile-menu");
-      const mobileMenuLinks = document.querySelectorAll(".mobile-menu-link");
-
-      menuButton.addEventListener("click", () => {
-        mobileMenu.classList.toggle("open");
-      });
-
-      mobileMenuLinks.forEach((link) => {
-        link.addEventListener("click", () => {
-          mobileMenu.classList.remove("open");
+      // Add hover effect to skill tags
+      document.querySelectorAll(".skill-tag").forEach((tag) => {
+        tag.addEventListener("mouseenter", function () {
+          this.style.transform = "scale(1.1)";
+        });
+        tag.addEventListener("mouseleave", function () {
+          this.style.transform = "scale(1)";
         });
       });
 
-      // Set current year in footer
-      document.getElementById("currentYear").textContent =
-        new Date().getFullYear();
+      // Typing effect for hero title (optional enhancement)
+      const heroTitle = document.querySelector(".hero-text h1");
+      const originalText = heroTitle.innerHTML;
+
+      // Add parallax effect to hero section
+      window.addEventListener("scroll", () => {
+        const scrolled = window.scrollY;
+        const hero = document.querySelector(".hero");
+        if (hero && scrolled < window.innerHeight) {
+          hero.style.backgroundPositionY = scrolled * 0.5 + "px";
+        }
+      });
     </script>
   </body>
 </html>
