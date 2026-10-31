@@ -1,132 +1,197 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleBtn = document.getElementById("toggle-btn");
-    const sidebar = document.querySelector('.izquierda');
-    const sections = document.querySelectorAll('.section');
-    const body = document.body;
-    const theme = document.getElementById("button-theme");
-    const savedTheme = localStorage.getItem('theme');
-    const btnIdioma = document.getElementById('button-idioma');
-    let idioma = "ES"
-    let idiomajson = {}; // Inicialización del objeto idiomajson
+// Paso 1: Obtener la referencia al elemento imagen en el HTML
+let imagenHero = document.getElementById("imagenHero");
+console.log(imagenHero)
+// *** PASO MUY IMPORTANTE: LISTAR LAS RUTAS DE TUS IMÁGENES ***
+// Crea un array (lista) con la ruta de CADA imagen que quieres mostrar.
+// Asegúrate de que estas rutas sean correctas en relación a dónde estás ejecutando tu JS.
+const imagenesProyectos = [
+    "img/animeList.png",
+    "img/bioRenacer.png",
+    "img/blockchain.png",
+    "img/ecofuturo.png",
+    "img/ecoworld.png",
+    "img/pokedex.png",
+    "img/reactAnime.png",
+    "img/Perfil.png"
+];
 
-    // Deshabilitar el botón hasta que se cargue el JSON
-    btnIdioma.disabled = true;
 
-    
-    //_________Carouse de imageness___________________________________________
-    const carousel = document.querySelector('.carousel');
-    const items = carousel.querySelectorAll('.carousel-item');
-    let currentIndex = 0;
 
-    // Clonar el primer elemento y añadirlo al final
-    carousel.appendChild(items[0].cloneNode(true));
+// Inicializar el índice de la imagen que vamos a mostrar
+let indiceActual = 0;
 
-    function nextImage() {
-        currentIndex++;
-        updateCarousel(true);
+/**
+ * Función encargada de cambiar la imagen.
+ */
+function mostrarSiguienteImagen() {
+    // 1. Cambia la fuente (src) de la imagen visible.
+    imagenHero.src = imagenesProyectos[indiceActual];
+    console.log(`Mostrando imagen: ${imagenesProyectos[indiceActual]}`);
+
+    // 2. Incrementa el índice para apuntar a la siguiente imagen en el array.
+    indiceActual++;
+
+    // 3. Comprobar si hemos llegado al final del array (si se desborda)
+    if (indiceActual >= imagenesProyectos.length) {
+        // Si llegamos al final, reiniciamos el ciclo volviendo a 0
+        indiceActual = 0;
     }
+}
 
-    function updateCarousel(isAutomatic = false) {
-        carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-        
-        if (currentIndex >= items.length) {
-            setTimeout(() => {
-                carousel.style.transition = 'none';
-                currentIndex = 0;
-                carousel.style.transform = `translateX(0)`;
-                setTimeout(() => {
-                    carousel.style.transition = 'transform 0.8s ease';
-                }, 50);
-            }, isAutomatic ? 800 : 0);
-        }
+// Paso 2: Ejecutar la función repetidamente
+// setInterval ejecuta una función cada cierto intervalo de tiempo (en milisegundos).
+// Queremos que cambie cada 2 segundos, lo cual es 2000 milisegundos.
+setInterval(mostrarSiguienteImagen, 2000);
+
+// Opcional: Mostrar la primera imagen inmediatamente al cargar la página
+mostrarSiguienteImagen();
+
+
+
+// Sakura Animation
+function createSakura() {
+    const container = document.getElementById("sakuraContainer");
+    const sakura = document.createElement("div");
+    sakura.classList.add("sakura");
+    sakura.style.left = Math.random() * 100 + "%";
+    sakura.style.animationDuration = Math.random() * 5 + 5 + "s";
+    sakura.style.animationDelay = Math.random() * 5 + "s";
+    container.appendChild(sakura);
+
+    setTimeout(() => {
+        sakura.remove();
+    }, 10000);
+}
+
+// Create multiple sakura petals
+for (let i = 0; i < 20; i++) {
+    setTimeout(createSakura, i * 500);
+}
+
+setInterval(createSakura, 2000);
+
+// Navbar Scroll Effect
+const navbar = document.getElementById("navbar");
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+    } else {
+        navbar.classList.remove("scrolled");
     }
+});
 
-    // Cambiar imagen cada 3 segundos
-    setInterval(nextImage, 3000);
+// Mobile Menu Toggle
+const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+const navLinks = document.getElementById("navLinks");
 
+mobileMenuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
 
+// Close mobile menu when clicking on a link
+navLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+    });
+});
 
-    // Cargar el archivo JSON
-    fetch('https://rey4stro.github.io/Michael-Flores.github.io/idioma.json')
-        .then(response => response.json())
-        .then(data => {
-            idiomajson = data;  // Asignar datos cargados a la variable idiomajson
-            console.log('Datos JSON cargados:', idiomajson);
+// Scroll Progress Bar
+const scrollProgress = document.getElementById("scrollProgress");
+window.addEventListener("scroll", () => {
+    const scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    scrollProgress.style.width = scrollPercent + "%";
+});
 
-            // Habilitar el botón después de que los datos se hayan cargado
-            btnIdioma.disabled = false;
-        })
-        .catch(error => {
-            console.error('Error al leer el archivo JSON:', error);
-        });
-
-    // Manejar el tema guardado
-    if (savedTheme) {
-        body.classList.add(savedTheme);
-    }
-
-    // Manejar el cambio de tema
-    theme.addEventListener('click', (e) => {
+// Smooth Scroll for Navigation Links
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
         e.preventDefault();
-        body.classList.toggle('dark-theme');
-
-        if (body.classList.contains('dark-theme')) {
-            localStorage.setItem('theme', 'dark-theme');
-        } else {
-            localStorage.removeItem('theme');
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
         }
     });
+});
 
-    // Manejar el botón de cambio de idioma
-    btnIdioma.addEventListener('click', (e) => {
-        e.preventDefault();
+// Intersection Observer for Animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px",
+};
 
-        idioma = (idioma === "ES") ? "EN" : "ES";  // Cambiar idioma
-        const idiomaLabel = document.getElementById("idioma-p");
-        if ((idioma === "ES")) {
-            idiomaLabel.textContent = "" + "EN"
-        } else {
-            idiomaLabel.textContent = "" + "ES"
-        }
-
-        // Verificar si el JSON ha sido cargado y la propiedad existe
-        if (idiomajson) {
-            document.getElementById("h1-about-me").textContent = idiomajson.sombremi[idioma];
-            document.getElementById("proyecto-anime-titulo").textContent = idiomajson.paginaAnime[idioma]
-            document.getElementById("menu-inicio").textContent = idiomajson.menuInicio[idioma]
-            document.getElementById("menu-sobremi").textContent = idiomajson.menuSobremi[idioma]
-            document.getElementById("menu-habilidades").textContent = idiomajson.menuHabilidades[idioma]
-            document.getElementById("menu-proyectos").textContent = idiomajson.menuProyectos[idioma]
-            document.getElementById("menu-contacto").textContent = idiomajson.menuContacto[idioma]
-            document.getElementById("habilidades-lenguajes").textContent = idiomajson.habilidadesLenguajes[idioma]
-            document.getElementById("habilidades-framework").textContent = idiomajson.habilidadesFramework[idioma]
-            document.getElementById("habilidades-web").textContent = idiomajson.habilidadesWeb[idioma]
-            document.getElementById("habilidades-basededatos").textContent = idiomajson.habilidadesBasededatos[idioma]
-            document.getElementById("habilidades-plataformas").textContent = idiomajson.habilidadesPlataformas[idioma]
-            document.getElementById("simulador-blockchain").textContent = idiomajson.simuladorBlockchain[idioma]
-            document.getElementById("menu-diplomas").textContent = idiomajson.menuDiplomas[idioma]
-
-        } else {
-            console.warn('JSON no cargado o propiedad "sombremi" no encontrada.');
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("fade-in");
         }
     });
+}, observerOptions);
 
-    // Manejar el botón de toggle de la barra lateral
-    toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('closed');
-        console.log("selecciono");
+// Observe all sections and cards
+document
+    .querySelectorAll(
+        "section, .skill-category, .timeline-content, .education-card, .course-card, .project-card",
+    )
+    .forEach((el) => {
+        observer.observe(el);
     });
 
-    // Observador de intersección para secciones
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1 });
+// Contact Form Handler
+const contactForm = document.getElementById("contactForm");
+contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-    sections.forEach(section => {
-        observer.observe(section);
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
+
+    // Create mailto link
+    const subject = encodeURIComponent(
+        "Mensaje desde Portafolio - " + name,
+    );
+    const body = encodeURIComponent(
+        `Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`,
+    );
+
+    window.open(
+        `mailto:michaflobe@gmail.com?subject=${subject}&body=${body}`,
+        "_blank",
+    );
+
+    // Show success message
+    alert(
+        "¡Gracias por tu mensaje! Te redirigiré a tu cliente de correo para enviar el mensaje.",
+    );
+    contactForm.reset();
+});
+
+// Add hover effect to skill tags
+document.querySelectorAll(".skill-tag").forEach((tag) => {
+    tag.addEventListener("mouseenter", function () {
+        this.style.transform = "scale(1.1)";
     });
+    tag.addEventListener("mouseleave", function () {
+        this.style.transform = "scale(1)";
+    });
+});
+
+// Typing effect for hero title (optional enhancement)
+const heroTitle = document.querySelector(".hero-text h1");
+const originalText = heroTitle.innerHTML;
+
+// Add parallax effect to hero section
+window.addEventListener("scroll", () => {
+    const scrolled = window.scrollY;
+    const hero = document.querySelector(".hero");
+    if (hero && scrolled < window.innerHeight) {
+        hero.style.backgroundPositionY = scrolled * 0.5 + "px";
+    }
 });
