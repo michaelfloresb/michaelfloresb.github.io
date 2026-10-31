@@ -6,13 +6,13 @@ console.log(imagenHero)
 // Asegúrate de que estas rutas sean correctas en relación a dónde estás ejecutando tu JS.
 const imagenesProyectos = [
     "img/animeList.png",
+    "img/animeListElectron.png",
     "img/bioRenacer.png",
     "img/blockchain.png",
+    "img/cronometroRubic.png",
     "img/ecofuturo.png",
     "img/ecoworld.png",
-    "img/pokedex.png",
     "img/reactAnime.png",
-    "img/Perfil.png"
 ];
 
 
