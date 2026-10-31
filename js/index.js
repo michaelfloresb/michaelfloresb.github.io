@@ -9,7 +9,7 @@ const imagenesProyectos = [
     "img/animeListElectron.png",
     "img/bioRenacer.png",
     "img/blockchain.png",
-    "img/cronometroRubic.png",
+    "img/cronometroRubik.png",
     "img/ecofuturoroa.png",
     "img/ecoworld.png",
     "img/reactAnime.png",
